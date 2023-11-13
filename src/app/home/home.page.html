@@ -1,20 +1,151 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-menu></app-menu>
+<ion-content appParallaxHeader [scrollEvents]="true">
+  <div class="home">
+    <section id="start" class="parallax-image">
+      <div class="home-image">
+        <div class="transbox">
+          <div class="center-container">
+            <h1>Apasionados por el comportamiento canino</h1>
+            <h2>Libera el poder de tu perro</h2>
+            <br/>
+            <div class="home-functions">
+              <a href="agendar">Programa tu sesión</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="productos">Productos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="center-container">
+              <h2>QUIÉNES SOMOS</h2>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="7">
+            <div class="justified-container">
+              <p>
+                Soy Rodrigo Arenas, líder del equipo de Agenda Canina. Soy un migrante del mundo corporativo, apasionado conocedor de la psicología canina con casi una década de experiencia tratando perros con temas de comportamiento y una altísima tasa de casos resueltos.
+                <br/>
+                <br/>
+                Más del 98% de los casos atendidos han sido resueltos con éxito.
+              </p>
+            </div>
+          </ion-col>
+          <ion-col size="5">
+            <img src="../assets/images/about/profile_image.png" width="100%" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  
+    <section id="quehacemos">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="center-container">
+              <h2>QUÉ HACEMOS</h2>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <h3 style="text-align: text-center">Sesiones Privadas</h3>
+            <div class="timeline">
+              <i class="fa fa-circle" aria-hidden="true"></i>
+              <span class="single-timeline-horizontal"></span>
+            </div>
+            <p>Trabajo personalizado en casa del perro con su familia donde el objetivo central es devolverle a la manada la armonía, paz, tranquilidad y unión que vienen los perros a traer a nuestras vidas, pero que por diversas razones se ha tornado en una situación disruptiva.</p>
+          </ion-col>
+          <ion-col size="4">
+            <h3 style="text-align: text-center">La S.E.D.E.</h3>          
+            <div class="timeline">
+              <i class="fa fa-circle" aria-hidden="true"></i>
+              <span class="single-timeline-horizontal"></span>
+            </div>
+            <div class="timeline"></div>
+            <p>Es un espacio complementario a las sesiones privadas donde los perros pueden venir a pasar el día o quedarse temporadas cortas y largas según la necesidad. Se llama La S.E.D.E. porque aquí Socializan de manera adecuada, hacen Ejercicio dirigido en función de su nivel de energía y se les refuerza la Disciplina mediante un set de reglas y límites igual al que se instauró en su casa mediante las sesiones privadas, lo que en conjunto contrubuye a tener perros Equilibrados con buenos modales.</p>
+          </ion-col>
+          <ion-col size="4">
+            <h3 style="text-align: text-center">Conferencias</h3>          
+            <div class="timeline">
+              <i class="fa fa-circle" aria-hidden="true"></i>
+              <span class="single-timeline-horizontal"></span>
+            </div>
+            <div class="timeline"></div>
+            <p>Preparamos conversatorios para todo tipo de público a solicitud de empresas, colegios, instituciones, complejos de propiedad horizontal, etc. que estén interesados en aprender sobre sicología canina o tengan alguna problmativa puntual a solucionar en sus comunidadaes</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  
+    <section id="contacto">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="center-container">
+              <h2>CONTÁCTANOS</h2>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <form>
+              <ion-item>
+                <ion-input label="Nombre" type="text" name="name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input label="Email" type="email" name="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input label="Título" type="text" name="title"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-textarea label="Mensaje" name="message"></ion-textarea>
+              </ion-item>
+              <ion-button type="submit">Enviar</ion-button>
+            </form>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+          <ion-col size="5">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <h3>Agenda Canina</h3>
+                  <h4>por Rodrigo Arenas</h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <h3>Whatsapp</h3>
+                  <h4>+57 3142452458</h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <h3>Website</h3>
+                  <h4>www.agendacanina.com</h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ul>
+                    <li><a href="https://www.tiktok.com/@agendacanina" target="_blank"><i class="fa-brands fa-tiktok"></i></a></li><!--/li-->
+                    <li><a href="https://wa.me/573142452458" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li><!--/li-->
+                    <li><a href="https://www.instagram.com/agendacanina/" target="_blank"><i class="fa-brands fa-instagram"></i></a></li><!--/li-->
+                  </ul><!--/ul-->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      </ion-grid>
+    </section>
   </div>
 </ion-content>

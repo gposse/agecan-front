@@ -1,13 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { MenuComponent } from '../menu/menu.component';
+import { SharedDirectivesModule } from '../directives/shared-directives.module';
+import { IonicModule } from '@ionic/angular';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [CommonModule, IonicModule, MenuComponent, SharedDirectivesModule],
 })
 export class HomePage {
-  constructor() {}
+  startImagePath = 'assets/images/about/home.jpg';
+  
+  constructor(
+    private data: DataService
+  ) {}
 }

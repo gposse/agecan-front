@@ -10,4 +10,12 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'agendar',
+    loadComponent: () => import('./agendar/agendar.page').then( m => m.AgendarPage)
+  },
+  {
+    path: 'productos',
+    loadComponent: () => import('./productos/productos.page').then( m => m.ProductosPage)
+  }
 ];
