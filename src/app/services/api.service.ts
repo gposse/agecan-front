@@ -12,16 +12,24 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  async calendarAvailability(date:any): Promise<any> {
-    const url = `${environment.apiUrl}calendar/available/${date}`;
+  async addAppointment(appointment:any): Promise<any> {
+    const url = `${environment.apiUrl}appointment/add`;
+    console.log(JSON.stringify(appointment));
+    const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(appointment)));
+    return r;
+  }
+
+  async calendarAvailability(date:any,cityId:string,locationId:string): Promise<any> {
+    const url = `${environment.apiUrl}calendar/available/${date}/${cityId}/${locationId}`;
     const r = await firstValueFrom(this.httpClient.get(url));
     return r;
   }
 
-  async horasDisponibles(date:any): Promise<any> {
-    const currentDate = new Date();
-    const currentLocalDate = new Date(currentDate.toLocaleString("en-US", {timeZone: "America/Bogota"}));
-    const currentLocalDateString = currentLocalDate.toISOString().slice(0,10);
+  async horasDisponibles(date:any,cityId:string,locationId:string): Promise<any> {
+    const currentLocalDate = new Date();
+    const a = currentLocalDate.toLocaleDateString("en-US", {timeZone: "America/Bogota", year: 'numeric', month: '2-digit', day: '2-digit'});
+    const b = a.split('/');
+    const currentLocalDateString = b[2]+"-"+b[0]+"-"+b[1];
     const currentTime = currentLocalDate.toLocaleTimeString("en-US", {hour12: false, timeZone: "America/Bogota"});
     const currentHour = parseInt(currentTime.slice(0,2));
     const currentMinute = parseInt(currentTime.slice(3,5));
@@ -37,7 +45,8 @@ export class ApiService {
       manana: [],
       tarde: []
     };
-    const r:any = await firstValueFrom(this.httpClient.get(`${environment.apiUrl}calendar/available/${date}`));
+    const url = `${environment.apiUrl}calendar/available/${date}/${cityId}/${locationId}`;
+    const r:any = await firstValueFrom(this.httpClient.get(url));
     for (let i = 0; i < 48; i++) {
       if (r.availability[i]=="A" && !(isCurrentDate && i<currentPos+3)) {
         const hora = Math.floor(i/2);

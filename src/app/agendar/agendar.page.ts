@@ -36,7 +36,10 @@ export class AgendarPage implements OnInit {
     private apiService: ApiService,
     private data: DataService
   ) { 
-    this.minDate = new Date().toISOString().split('T')[0];
+    const currentLocalDate = new Date();
+    const a = currentLocalDate.toLocaleDateString("en-US", {timeZone: "America/Bogota", year: 'numeric', month: '2-digit', day: '2-digit'});
+    const b = a.split('/');
+    this.minDate = b[2]+"-"+b[0]+"-"+b[1];
     this.fechaSeleccionada = this.minDate;
     this.horaSeleccionada = '';
   }
@@ -54,16 +57,13 @@ export class AgendarPage implements OnInit {
   }
 
   async getHorasDisponibles() {
-    this.horasDisponibles = await this.apiService.horasDisponibles(this.fechaSeleccionada);
+    this.horasDisponibles = await this.apiService.horasDisponibles(this.fechaSeleccionada,this.ciudad.id,this.localidad.id);
   }
 
   async ngOnInit() {
     await this.data.iniciar();
     const fecha = new Date();
     this.fechaSeleccionada = fecha.toISOString().split('T')[0];
-    console.log(this.fechaSeleccionada);
-    this.horasDisponibles = await this.apiService.horasDisponibles(this.fechaSeleccionada);
-
   }
 
   onCiudadChange(event: any) {
@@ -85,15 +85,15 @@ export class AgendarPage implements OnInit {
     }
   }
 
-  onConfirmar() {
+  async onConfirmar() {
     if (this.ciudad && this.localidad) {
+      this.horasDisponibles = await this.apiService.horasDisponibles(this.fechaSeleccionada,this.ciudad.id,this.localidad.id);
       this.isLocated = true;
     }
   }
 
   onDateChange(event: any) {
     this.fechaSeleccionada = event.detail.value.split('T')[0];
-    console.log(this.fechaSeleccionada);
     this.getHorasDisponibles();
   }
 
@@ -132,7 +132,6 @@ export class AgendarPage implements OnInit {
           const reader = new FileReader();
           reader.onloadend = () => {
             this.audioBase64 = reader.result as string;
-            console.log('Archivo de audio en base64:', this.audioBase64);
           };
           reader.readAsDataURL(audioBlob);
         });
@@ -151,10 +150,31 @@ export class AgendarPage implements OnInit {
     }
   }  
   
-  submitForm() {
-    console.log('Nombre:', this.nombre);
-    console.log('Dirección:', this.direccion);
-    console.log('Ciudad:', this.ciudad);
+  async submitForm() {
+    let duration = 90;
+    if (this.ciudad.id!="11001")
+      duration = 150;
+    let appointment = {
+      datetime: this.fechaSeleccionada+"T"+this.horaSeleccionada+":00.000Z",
+      city: this.ciudad.id,
+      location: this.localidad.id,
+      address: this.direccion,
+      name: this.nombre,
+      phone: this.celular,
+      email: this.email,
+      duration: duration,
+      audio: this.audioBase64
+    }
+    const r = await this.apiService.addAppointment(appointment);
+    if (r) {
+      this.horaSeleccionada = "";
+      this.audioBase64 = "";
+      this.celular = "";
+      this.direccion = "";
+      this.email = "";
+      this.nombre = "";
+      this.recording = false;
+    }
   }
 
   tieneHoraSeleccionada() {

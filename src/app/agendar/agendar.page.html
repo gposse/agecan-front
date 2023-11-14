@@ -41,7 +41,11 @@
                 <tr>
                   <th>Hora AM</th>
                 </tr>
-                <tr *ngFor="let hora of horasDisponibles.manana"><td><ion-button (click)="seleccionarHora(hora)">{{ hora }}</ion-button></td></tr>
+                <tr *ngFor="let hora of horasDisponibles.manana">
+                  <td>
+                    <ion-button class="hourButton" (click)="seleccionarHora(hora)">{{ hora }}</ion-button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </ion-col>
@@ -51,7 +55,11 @@
                 <tr>
                   <th>Hora PM</th>
                 </tr>
-                <tr *ngFor="let hora of horasDisponibles.tarde"><td><ion-button (click)="seleccionarHora(hora)">{{ hora }}</ion-button></td></tr>
+                <tr *ngFor="let hora of horasDisponibles.tarde">
+                  <td>
+                    <ion-button class="hourButton" (click)="seleccionarHora(hora)">{{ hora }}</ion-button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </ion-col>
