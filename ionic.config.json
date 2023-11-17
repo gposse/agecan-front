@@ -1,0 +1,7 @@
+{
+  "name": "agecan-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
