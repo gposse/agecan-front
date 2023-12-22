@@ -1,0 +1,115 @@
+<app-menu></app-menu>
+<ion-content id="agecan-main-content">
+  <div class="agendar">
+    <div *ngIf="!isLocated">
+      <h1>Por favor confirma tu ubicación</h1>
+      <form name="frmUbicacion" (submit)="onConfirmar()">
+        <ion-item>
+          <ion-select label="Ciudad" name="ciudad" (ionChange)="onCiudadChange($event)">
+            <ion-select-option *ngFor="let ciudad of Ciudades" [value]="ciudad.id">{{ciudad.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Localidad" type="text" name="localidad" (ionChange)="onLocalidadChange($event)">
+            <ion-select-option *ngFor="let lc of localidades" [value]="lc.id">{{lc.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button type="submit">Confirmar</ion-button>
+      </form>
+    </div>  
+    <div *ngIf="isLocated">
+      <ion-grid *ngIf="!tieneHoraSeleccionada()">
+        <ion-row>
+          <ion-col size="6">
+            <ion-row>
+              <ion-datetime displayFormat="DD/MM/YYYY" min="{{ minDate }}" [(ngModel)]="fechaSeleccionada" (ionChange)="onDateChange($event)" presentation="date" value="{{ fechaSeleccionada | date: 'yyyy-MM-dd' }}"></ion-datetime>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                Horarios disponibles para {{ ciudad.name}} / {{ localidad.name }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="full" (click)="cambiarUbicacion()">Cambiar ubicación</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="3">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Hora AM</th>
+                </tr>
+                <tr *ngFor="let hora of horasDisponibles.manana">
+                  <td>
+                    <ion-button class="hourButton" (click)="seleccionarHora(hora)">{{ hora }}</ion-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+          <ion-col size="3">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Hora PM</th>
+                </tr>
+                <tr *ngFor="let hora of horasDisponibles.tarde">
+                  <td>
+                    <ion-button class="hourButton" (click)="seleccionarHora(hora)">{{ hora }}</ion-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid *ngIf="tieneHoraSeleccionada()">
+        <ion-row>
+          <ion-col size="12">
+            <form name="frmAppointment">
+              <ion-list>
+                <ion-item>
+                  <ion-input label="Tu nombre:" name="nombre" labelPlacement="floating" [(ngModel)]="nombre" ngDefaultControl></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Tu dirección:" name="direccion" labelPlacement="floating" [(ngModel)]="direccion" ngDefaultControl></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Tu email:" name="email" labelPlacement="floating" [(ngModel)]="email" ngDefaultControl></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Tu celular:" name="celular" labelPlacement="floating" [(ngModel)]="celular" ngDefaultControl></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input label="Tu ciudad:" name="ciudadNombre" labelPlacement="floating" [(ngModel)]="ciudadNombre" readonly ngDefaultControl></ion-input>
+                </ion-item>
+                <ion-item>
+                  <p class="multiline-label">Cuéntanos en un audio concreto los detalles, incluye tu nombre completo, el tu perro, raza, edad, tiempo que llevas con él, cómo supiste de nosotros y una descripción de la situación a corregir</p>
+                </ion-item>
+                <ion-item>
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-button (click)="startRecording()" [disabled]="recording">
+                        <i class="fa-solid fa-microphone"></i>
+                      </ion-button>
+                      <ion-button (click)="stopRecording()" [disabled]="!recording">
+                        <i class="fa-solid fa-stop"></i>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+          
+                <br/>
+                <ion-button expand="full" (click)="submitForm()">Enviar</ion-button>
+                <br/>
+                <ion-button expand="full" (click)="cancelForm()">Cancelar</ion-button>
+              </ion-list>        
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
