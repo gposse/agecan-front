@@ -1,0 +1,44 @@
+<app-menu></app-menu>
+<ion-content id="agecan-main-content">
+  <ion-grid *ngIf="!isLoggedIn()">
+    <ion-row>
+      <ion-col size="12">
+        <div>Para adquirir sesiones debes <a href="/login">ingresar</a> con tu usuario y contraseña. Si no tienes cuenta, puedes registrarte</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="isLoggedIn()">
+    <ion-row>
+      <ion-col size="12">
+        <div>Hola, {{ user.name }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="packagesUser.length==0">
+      <ion-col size="12">
+        <div>No tienes sesiones disponibles. Debes adquirir uno para programar una sesión.</div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let pkg of packagesUser">
+      <ion-col size="4">
+        <div>{{ pkg.descripcion }}</div>
+      </ion-col>
+      <ion-col size="4">
+        <div>Disponibles: {{ pkg.available }} de {{ pkg.sessions }}</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <form>
+          <ion-item>
+            <ion-input label="No. de sesiones:" type="number" [(ngModel)]="numSesiones" name="numSesiones" (ionInput)="calcularPrecio()" min="0" max="10"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Precio:" type="text" [value]="formatoPrecio(precio)" readonly></ion-input>
+          </ion-item>
+          <ion-button (click)="agregarACarrito()" expand="full">Agregar al carrito</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

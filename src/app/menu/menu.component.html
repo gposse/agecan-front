@@ -2,7 +2,7 @@
   <ion-content class="ion-padding">
     <ion-menu-toggle>
       <ion-list class="menu-items">
-        <ion-item href="/agendar">
+        <ion-item href="/paquetes">
           Programa tu sesión
         </ion-item>
         <ion-item href="/home#about">
@@ -16,6 +16,12 @@
         </ion-item>
         <ion-item href="/home#contacto">
           Contáctanos
+        </ion-item>
+        <ion-item *ngIf="!isLoggedIn()" href="/login">
+          Ingresar
+        </ion-item>
+        <ion-item *ngIf="isLoggedIn()" (click)="logout()">
+          Salir
         </ion-item>
       </ion-list>
     </ion-menu-toggle>
@@ -32,7 +38,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end" class="hide-menu-button">
-      <ion-button href="/agendar">
+      <ion-button href="/paquetes">
         Programa tu sesión
       </ion-button>
       <ion-button href="/home#about">
@@ -46,6 +52,12 @@
       </ion-button>
       <ion-button href="/home#contacto">
         Contáctanos
+      </ion-button>
+      <ion-button *ngIf="!isLoggedIn()" href="/login">
+        Ingresar
+      </ion-button>
+      <ion-button *ngIf="isLoggedIn()" (click)="logout()">
+        Salir
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

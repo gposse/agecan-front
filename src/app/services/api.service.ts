@@ -2,6 +2,7 @@ import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class ApiService {
 
   constructor(
+    private account: AccountService,
     private httpClient: HttpClient
   ) { }
 
@@ -64,6 +66,22 @@ export class ApiService {
 
   async initialData(): Promise<any> {
     const url = `${environment.apiUrl}base/initial-data`;
+    const r = await firstValueFrom(this.httpClient.get(url));
+    return r;
+  }
+
+
+  async packagesUser(): Promise<any> {
+    const url = `${environment.apiUrl}packages`;
+    const headers = {
+      Authorization: `Bearer ${this.account.getToken()}`
+    }
+    const r = await firstValueFrom(this.httpClient.get(url,{headers: headers}));
+    return r;
+  }
+
+  async packageTypes(): Promise<any> {
+    const url = `${environment.apiUrl}package/types`;
     const r = await firstValueFrom(this.httpClient.get(url));
     return r;
   }

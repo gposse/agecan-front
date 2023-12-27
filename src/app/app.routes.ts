@@ -15,7 +15,19 @@ export const routes: Routes = [
     loadComponent: () => import('./agendar/agendar.page').then( m => m.AgendarPage)
   },
   {
+    path: 'login',
+    loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'paquetes',
+    loadComponent: () => import('./paquetes/paquetes.page').then( m => m.PaquetesPage)
+  },
+  {
     path: 'productos',
     loadComponent: () => import('./productos/productos.page').then( m => m.ProductosPage)
   },
+  {
+    path: 'registro',
+    loadComponent: () => import('./auth/registro/registro.page').then( m => m.RegistroPage)
+  }
 ];
