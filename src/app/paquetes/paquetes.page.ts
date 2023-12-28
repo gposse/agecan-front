@@ -7,6 +7,7 @@ import { AccountService } from '../services/account.service';
 import { IUserDetails } from '../models/user/user-details';
 import { Storage } from '@ionic/storage-angular';
 import { ApiService } from '../services/api.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-paquetes',
@@ -20,15 +21,23 @@ export class PaquetesPage implements OnInit {
   packageTypes: any = [];
   packagesUser: any = [];
   precio: number = 0;
-  user: IUserDetails = {};
+  user: IUserDetails | undefined = undefined;
 
   constructor(
     private account: AccountService,
     private api: ApiService,
+    public cart: CartService,
     private storage: Storage
   ) { }
 
   agregarACarrito() {
+    if (this.numSesiones<1) return;
+    
+    this.cart.addProduct({
+      type: 'Sesiones',
+      quantity: this.numSesiones,
+      price: this.precio
+    });
   }
 
   calcularPrecio() {
@@ -59,12 +68,12 @@ export class PaquetesPage implements OnInit {
 
   async ngOnInit() {
     await this.storage.create();
-    this.user = await this.account.getUser() ?? {};
-    const r = await this.api.packagesUser();
+    this.user = await this.account.getUser() ?? undefined;
+    if (this.user) {
+      const r = await this.api.packagesUser();
+    }
     const pt = await this.api.packageTypes();
-    console.log(pt);
     this.packageTypes = pt.types;
-    //this.packageTypes.push({ id: 0, name: 'Todos', description: 'Test', price: 1500000 });
   }
 
 }

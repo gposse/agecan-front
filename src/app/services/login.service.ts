@@ -4,7 +4,7 @@ import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 import { Platform } from "@ionic/angular";
 import { initializeApp } from "firebase/app";
-import { FacebookAuthProvider, GoogleAuthProvider, User, getAuth, onAuthStateChanged, signInWithCredential } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, getAuth, signInWithCredential } from "firebase/auth";
 import { AppPagePath, AppStorageKey } from "src/app/models/enums/app-constant";
 import { AccountService } from "./account.service";
 import { LocalStorageService } from "./local-storage.service";
@@ -29,28 +29,16 @@ export class LoginService {
         return await this.userService.getUser();
     }
 
-    public async refreshToken() {
-        const auth = getAuth(this.firebase);
-        onAuthStateChanged(auth, async (currenUser: User | null) => {
-            if (currenUser) {
-                const idToken = await currenUser.getIdToken(true);
-                await this.localStorageService.set(AppStorageKey.AccessToken, idToken);
-            } else {
-                await this.logout();
-            }
-        });
-    }
-
     isLoggedIn(): boolean {
         return this.userService.isLoggedIn();
     }
 
     async logout() {
         await getAuth(this.firebase).signOut();
-        if (this.userService.loginService === 'facebook') {
+        if (this.userService.loginType === 'facebook') {
             await FacebookLogin.logout().then(() => console.log('Logged out')).catch((e) => { console.log('Logged out') });
         }
-        if (this.userService.loginService === 'google') {
+        if (this.userService.loginType === 'google') {
             await GoogleAuth.signOut().then(() => console.log('Signed Out')).catch((e) => { console.log('Signed Out') });
         }
         this.userService.logout().then(async () => {
@@ -100,7 +88,7 @@ export class LoginService {
                         const access_token = await s.user.getIdToken();
                         await this.localStorageService.set(AppStorageKey.AccessToken, access_token);
                         this.userService.login({ name: user.givenName, email: user.email, imageUrl: user.imageUrl },'google');
-                        this.router.navigateByUrl(AppPagePath.Home);
+                        this.router.navigate([AppPagePath.Home], { replaceUrl: true });
                     })
                     .catch((error) => {
                         console.log(error);

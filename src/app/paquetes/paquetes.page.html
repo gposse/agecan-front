@@ -10,7 +10,7 @@
   <ion-grid *ngIf="isLoggedIn()">
     <ion-row>
       <ion-col size="12">
-        <div>Hola, {{ user.name }}</div>
+        <div>Hola, {{ user?.name }}</div>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="packagesUser.length==0">
@@ -38,6 +38,12 @@
           </ion-item>
           <ion-button (click)="agregarACarrito()" expand="full">Agregar al carrito</ion-button>
         </form>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="cart.sessions()>0">
+      <ion-col size="12">
+        <br/>
+        <div>Tienes {{ cart.sessions() }} sesiones en el carrito de compras. Puedes confirmar la compra <a href="/carrito">aquí</a></div>
       </ion-col>
     </ion-row>
   </ion-grid>

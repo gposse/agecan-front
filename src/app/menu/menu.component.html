@@ -17,6 +17,10 @@
         <ion-item href="/home#contacto">
           Contáctanos
         </ion-item>
+        <ion-item *ngIf="isLoggedIn()" href="/carrito">
+          <i class="fa fa-cart-shopping" aria-hidden="true"></i>
+          <span *ngIf="itemCount()>0" class="item-count">&nbsp;{{ itemCount() }}</span>
+        </ion-item>
         <ion-item *ngIf="!isLoggedIn()" href="/login">
           Ingresar
         </ion-item>
@@ -52,6 +56,10 @@
       </ion-button>
       <ion-button href="/home#contacto">
         Contáctanos
+      </ion-button>
+      <ion-button *ngIf="isLoggedIn()" href="/carrito">
+        <i class="fa fa-cart-shopping" aria-hidden="true"></i>
+        <span *ngIf="itemCount()>0" class="item-count">&nbsp;{{ itemCount() }}</span>
       </ion-button>
       <ion-button *ngIf="!isLoggedIn()" href="/login">
         Ingresar

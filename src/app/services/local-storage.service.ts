@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
     providedIn: 'root'
 })
 export class LocalStorageService {
+    started: boolean = false;
 
     constructor(private storage: Storage) { }
 
@@ -24,5 +25,10 @@ export class LocalStorageService {
         keys.forEach(async key => {
             await this.storage.remove(key);
         });
+    }
+
+    async init() {
+        await this.storage.create();
+        this.started = true;
     }
 }

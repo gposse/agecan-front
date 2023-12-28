@@ -1,0 +1,32 @@
+<app-menu></app-menu>
+<ion-content id="agecan-main-content">
+  <h1>Carrito de compras</h1>
+  <div *ngIf="cart.items.length==0">
+    <h1>No tienes elementos en el carrito de compras.</h1>
+  </div>
+  <ion-grid *ngIf="cart.items.length>0">
+    <ion-row>
+      <ion-col>Producto</ion-col>
+      <ion-col>Cantidad</ion-col>
+      <ion-col>Precio</ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row  *ngFor="let item of cart.items; index as i">
+      <ion-col><strong>{{item.type}}</strong></ion-col>
+      <ion-col>{{item.quantity}}</ion-col>
+      <ion-col>{{item.price | currency }}</ion-col>
+      <ion-col><ion-button (click)="removeFromCart(i)"><i class="fa fa-trash"></i></ion-button></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col><strong>Total</strong></ion-col>
+      <ion-col><strong>{{cart.total() | currency }}</strong></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="checkout()">Confirmar compra</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+</ion-content>

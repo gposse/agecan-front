@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,5 +30,10 @@ export const routes: Routes = [
   {
     path: 'registro',
     loadComponent: () => import('./auth/registro/registro.page').then( m => m.RegistroPage)
+  },
+  {
+    path: 'carrito',
+    loadComponent: () => import('./carrito/carrito.page').then( m => m.CarritoPage),
+    canActivate: [AuthGuard]
   }
 ];

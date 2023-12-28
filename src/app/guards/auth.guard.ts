@@ -14,7 +14,9 @@ class PermissionsService {
 
   async canActivate(): Promise<boolean> {
     try {
+      await this.accountService.getUser();
       const authenticated = await this.accountService.isLoggedIn();
+      console.log(authenticated);
       if (!authenticated) {
         this.router.navigate(['/login']);
         return false;
