@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonItem, IonList, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { MenuComponent } from '../menu/menu.component';
 import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agendar',
@@ -24,6 +25,7 @@ export class AgendarPage implements OnInit {
   public fechaSeleccionada: string; 
   public horasDisponibles: any;
   public horaSeleccionada: string;
+  public idSesion: any;
   public isLocated: boolean = false;
   public localidades: any = [];
   public localidad: any = null;
@@ -34,7 +36,8 @@ export class AgendarPage implements OnInit {
   
   constructor(
     private apiService: ApiService,
-    private data: DataService
+    private data: DataService,
+    private router: Router
   ) { 
     const currentLocalDate = new Date();
     const a = currentLocalDate.toLocaleDateString("en-US", {timeZone: "America/Bogota", year: 'numeric', month: '2-digit', day: '2-digit'});
@@ -64,6 +67,7 @@ export class AgendarPage implements OnInit {
     await this.data.iniciar();
     const fecha = new Date();
     this.fechaSeleccionada = fecha.toISOString().split('T')[0];
+    this.idSesion = history.state.idSesion;    
   }
 
   onCiudadChange(event: any) {
@@ -169,7 +173,8 @@ export class AgendarPage implements OnInit {
       phone: this.celular,
       email: this.email,
       duration: duration,
-      audio: this.audioBase64
+      audio: this.audioBase64,
+      sessionId: this.idSesion
     }
     const r = await this.apiService.addAppointment(appointment);
     if (r) {
@@ -180,6 +185,7 @@ export class AgendarPage implements OnInit {
       this.email = "";
       this.nombre = "";
       this.recording = false;
+      this.router.navigate(['/paquetes']);    
     }
   }
 

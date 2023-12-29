@@ -34,5 +34,6 @@ export class MenuComponent  implements OnInit {
 
   async ngOnInit() {
     await this.cart.init();
+    await this.account.getUser();
   }
 }

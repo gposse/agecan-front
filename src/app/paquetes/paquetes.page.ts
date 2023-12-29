@@ -8,6 +8,7 @@ import { IUserDetails } from '../models/user/user-details';
 import { Storage } from '@ionic/storage-angular';
 import { ApiService } from '../services/api.service';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paquetes',
@@ -17,9 +18,13 @@ import { CartService } from '../services/cart.service';
   imports: [CommonModule, FormsModule, IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, MenuComponent]
 })
 export class PaquetesPage implements OnInit {
+  idSesion: any;
   numSesiones: number = 0;
-  packageTypes: any = [];
-  packagesUser: any = [];
+  numSesionesDisponibles: number = 0;
+  prices: any = [];
+  price1: number = 0;
+  price2: number = 0;
+  price3: number = 0;
   precio: number = 0;
   user: IUserDetails | undefined = undefined;
 
@@ -27,6 +32,7 @@ export class PaquetesPage implements OnInit {
     private account: AccountService,
     private api: ApiService,
     public cart: CartService,
+    private router: Router,
     private storage: Storage
   ) { }
 
@@ -45,13 +51,13 @@ export class PaquetesPage implements OnInit {
     if (this.numSesiones > 10) this.numSesiones = 10;
     this.precio = 0;
     if (this.numSesiones > 0) {
-      this.precio += 210000;
+      this.precio += this.price1;
     }
     if (this.numSesiones > 1) {
-      this.precio += 180000;
+      this.precio += this.price2;
     }
     if (this.numSesiones > 2) {
-      this.precio += (this.numSesiones-2)*170000;
+      this.precio += (this.numSesiones-2)*this.price3;
     }
   }
 
@@ -70,10 +76,37 @@ export class PaquetesPage implements OnInit {
     await this.storage.create();
     this.user = await this.account.getUser() ?? undefined;
     if (this.user) {
-      const r = await this.api.packagesUser();
+      const r = await this.api.sessionsUser();
+      if (r.length>0) {
+        this.numSesionesDisponibles = r.length;
+        this.idSesion = r[0].id;
+      }
     }
-    const pt = await this.api.packageTypes();
-    this.packageTypes = pt.types;
+    const pt = await this.api.prices('Sesiones');
+    this.prices = pt;
+    this.price1 = pt.find((price: any) => price.order === 1).price;
+    this.price2 = pt.find((price: any) => price.order === 2).price;
+    this.price3 = pt.find((price: any) => price.order === 3).price;
   }
 
+  numeroSesiones() {
+    const n = this.cart.sessions();
+    if (n==1) {
+      return "1 sesión";
+    } else {
+      return n+" sesiones";
+    }
+  }
+
+  programarSesion() {
+    this.router.navigate(['/agendar'], { state: { idSesion: this.idSesion } });    
+  }
+
+  sesionesDisponibles() {
+    if (this.numSesionesDisponibles==1) {
+      return "1 sesión";
+    } else {
+      return this.numSesionesDisponibles+" sesiones";
+    }
+  }
 }

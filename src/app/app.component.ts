@@ -12,7 +12,6 @@ import { AccountService } from './services/account.service';
 })
 export class AppComponent {
   constructor(
-    private account: AccountService,
     private data: DataService,
     private storage: Storage
   ) {    
@@ -21,6 +20,5 @@ export class AppComponent {
   async ngOnInit() {
     await this.data.iniciar();
     await this.storage.create();
-    await this.account.getUser();
   }
 }

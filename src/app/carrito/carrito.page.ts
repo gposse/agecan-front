@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../menu/menu.component';
 import { IonButton, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonRow } from '@ionic/angular/standalone';
 import { CartService } from '../services/cart.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-carrito',
@@ -15,10 +16,20 @@ import { CartService } from '../services/cart.service';
 export class CarritoPage implements OnInit {
 
   constructor(
+    private api: ApiService,
     public cart: CartService
   ) { }
 
   async checkout() {
+    try {
+      const data = {
+        cart: this.cart.items
+      }
+      const r = await this.api.buy(data);      
+      this.cart.clean();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async ngOnInit() {

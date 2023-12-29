@@ -16,14 +16,27 @@ export class ApiService {
 
   async addAppointment(appointment:any): Promise<any> {
     const url = `${environment.apiUrl}appointment/add`;
-    console.log(JSON.stringify(appointment));
     const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(appointment)));
+    return r;
+  }
+
+  async buy(data:any): Promise<any> {
+    const url = `${environment.apiUrl}sales/buy`;
+    const token = await this.account.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(data),{headers: headers}));
     return r;
   }
 
   async calendarAvailability(date:any,cityId:string,locationId:string): Promise<any> {
     const url = `${environment.apiUrl}calendar/available/${date}/${cityId}/${locationId}`;
-    const r = await firstValueFrom(this.httpClient.get(url));
+    const token = await this.account.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    const r = await firstValueFrom(this.httpClient.get(url,{headers: headers}));
     return r;
   }
 
@@ -47,8 +60,12 @@ export class ApiService {
       manana: [],
       tarde: []
     };
+    const token = await this.account.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
     const url = `${environment.apiUrl}calendar/available/${date}/${cityId}/${locationId}`;
-    const r:any = await firstValueFrom(this.httpClient.get(url));
+    const r:any = await firstValueFrom(this.httpClient.get(url,{headers: headers}));
     for (let i = 0; i < 48; i++) {
       if (r.availability[i]=="A" && !(isCurrentDate && i<currentPos+3)) {
         const hora = Math.floor(i/2);
@@ -71,18 +88,26 @@ export class ApiService {
   }
 
 
-  async packagesUser(): Promise<any> {
-    const url = `${environment.apiUrl}packages`;
+  async sessionsUser(): Promise<any> {
+//    const url = `${environment.apiUrl}sessions/history`;
+    const url = `${environment.apiUrl}sessions`;
+    const token = await this.account.getToken();
     const headers = {
-      Authorization: `Bearer ${this.account.getToken()}`
+      Authorization: `Bearer ${token}`
     }
     const r = await firstValueFrom(this.httpClient.get(url,{headers: headers}));
     return r;
   }
 
-  async packageTypes(): Promise<any> {
-    const url = `${environment.apiUrl}package/types`;
-    const r = await firstValueFrom(this.httpClient.get(url));
-    return r;
+  async prices(type: any): Promise<any> {
+    const url = `${environment.apiUrl}sales/prices`;
+    const r:any = await firstValueFrom(this.httpClient.get(url));
+    let prices = [];
+    for (let i = 0; i < r.prices.length; i++) {
+      if (r.prices[i].type == type || type == 'all') {
+        prices.push(r.prices[i]);
+      }
+    }
+    return prices;
   }
 }

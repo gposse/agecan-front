@@ -13,7 +13,8 @@ export const routes: Routes = [
   },
   {
     path: 'agendar',
-    loadComponent: () => import('./agendar/agendar.page').then( m => m.AgendarPage)
+    loadComponent: () => import('./agendar/agendar.page').then( m => m.AgendarPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

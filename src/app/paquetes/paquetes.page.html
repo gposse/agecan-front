@@ -13,17 +13,17 @@
         <div>Hola, {{ user?.name }}</div>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="packagesUser.length==0">
+    <ion-row *ngIf="numSesionesDisponibles==0">
       <ion-col size="12">
         <div>No tienes sesiones disponibles. Debes adquirir uno para programar una sesión.</div>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let pkg of packagesUser">
+    <ion-row *ngIf="numSesionesDisponibles>0">
       <ion-col size="4">
-        <div>{{ pkg.descripcion }}</div>
+        <div>Tienes {{ sesionesDisponibles() }} para programar.</div>
       </ion-col>
       <ion-col size="4">
-        <div>Disponibles: {{ pkg.available }} de {{ pkg.sessions }}</div>
+        <ion-button (click)="programarSesion()" expand="full">Programar sesión</ion-button>
       </ion-col>
     </ion-row>
 
@@ -43,7 +43,7 @@
     <ion-row *ngIf="cart.sessions()>0">
       <ion-col size="12">
         <br/>
-        <div>Tienes {{ cart.sessions() }} sesiones en el carrito de compras. Puedes confirmar la compra <a href="/carrito">aquí</a></div>
+        <div>Tienes {{ numeroSesiones() }} en el carrito de compras. Puedes confirmar la compra <a href="/carrito">aquí</a></div>
       </ion-col>
     </ion-row>
   </ion-grid>

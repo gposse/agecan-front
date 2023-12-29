@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { AppEvent, AppStorageKey } from 'src/app/models/enums/app-constant';
 import { IUserDetails } from 'src/app/models/user/user-details';
-import { LocalNotificationService } from './local-notification.service';
 import { LocalStorageService } from './local-storage.service';
 import { jwtDecode } from "jwt-decode";
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -20,8 +19,7 @@ export class AccountService {
 
     constructor(
         public storage: Storage, 
-        private localStorageService: LocalStorageService,
-        private localNotificationService: LocalNotificationService
+        private localStorageService: LocalStorageService
     ) { 
         this.firebase = initializeApp(environment.firebase);
     }
@@ -51,11 +49,15 @@ export class AccountService {
     async logout(): Promise<any> {
         this.loginType = '';
         await this.storage.remove(AppStorageKey.CurrentUser);
-        await this.localNotificationService.send('😄', 'Thank you for using the APP!');
         window.dispatchEvent(new CustomEvent(AppEvent.Logout));
     }
 
-    getToken(): string {
+    async getToken(): Promise<string> {
+        if (this.token && this.isTokenExpired(this.token)) {
+            console.log('Refreshing token');
+            await this.refreshToken();
+            this.token = await this.localStorageService.get(AppStorageKey.AccessToken);
+        }
         return this.token;
     }
 

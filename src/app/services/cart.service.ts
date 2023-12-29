@@ -16,6 +16,11 @@ export class CartService {
     this.storage.set('carrito', this.items);
   }
 
+  clean() {
+    this.items = [];
+    this.storage.set('carrito', this.items);
+  }
+
   itemCount() {
     return this.items.length;
   }
