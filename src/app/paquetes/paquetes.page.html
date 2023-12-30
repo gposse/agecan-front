@@ -1,9 +1,11 @@
 <app-menu></app-menu>
 <ion-content id="agecan-main-content">
+  <div *ngIf="isReady">
   <ion-grid *ngIf="!isLoggedIn()">
     <ion-row>
       <ion-col size="12">
-        <div>Para adquirir sesiones debes <a href="/login">ingresar</a> con tu usuario y contraseña. Si no tienes cuenta, puedes registrarte</div>
+        <br/>
+        <div>Para programar sesiones debes <strong><a href="/login" style="color: var(--ion-color-primary);">ingresar</a></strong> con tu usuario y contraseña. Si no tienes cuenta, puedes registrarte</div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -15,7 +17,7 @@
     </ion-row>
     <ion-row *ngIf="numSesionesDisponibles==0">
       <ion-col size="12">
-        <div>No tienes sesiones disponibles. Debes adquirir uno para programar una sesión.</div>
+        <div>No tienes sesiones disponibles. Debes adquirir al menos una para programar una sesión.</div>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="numSesionesDisponibles>0">
@@ -47,4 +49,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  </div>
 </ion-content>

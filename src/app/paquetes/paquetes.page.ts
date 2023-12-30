@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class PaquetesPage implements OnInit {
   idSesion: any;
+  isReady: boolean = false;
   numSesiones: number = 0;
   numSesionesDisponibles: number = 0;
   prices: any = [];
@@ -73,6 +74,7 @@ export class PaquetesPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.isReady = false;
     await this.storage.create();
     this.user = await this.account.getUser() ?? undefined;
     if (this.user) {
@@ -87,6 +89,7 @@ export class PaquetesPage implements OnInit {
     this.price1 = pt.find((price: any) => price.order === 1).price;
     this.price2 = pt.find((price: any) => price.order === 2).price;
     this.price3 = pt.find((price: any) => price.order === 3).price;
+    this.isReady = true;
   }
 
   numeroSesiones() {
@@ -104,9 +107,9 @@ export class PaquetesPage implements OnInit {
 
   sesionesDisponibles() {
     if (this.numSesionesDisponibles==1) {
-      return "1 sesión";
+      return "1 sesión disponible";
     } else {
-      return this.numSesionesDisponibles+" sesiones";
+      return this.numSesionesDisponibles+" sesiones disponibles";
     }
   }
 }

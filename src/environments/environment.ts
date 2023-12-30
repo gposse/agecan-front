@@ -16,6 +16,9 @@ export const environment = {
   },
   google: {
     clientId: '745117521548-i0447lnt2kqbj4if28bstmn12d0alb27.apps.googleusercontent.com'
+  },
+  facebook: {
+    appId: '749935929900547'
   }
 };
 

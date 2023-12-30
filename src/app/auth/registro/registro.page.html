@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<app-menu></app-menu>
+<ion-content [fullscreen]="true" id="agecan-main-content">
+  <h1>Completa tus datos de registro</h1>
+  <div *ngIf="error" style="color: red;">
+    <p>{{error}}</p>
+  </div>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-input label="Email:" type="email" required [(ngModel)]="email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Nombre:" type="text" required [(ngModel)]="nombre" name="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Apellido:" type="text" required [(ngModel)]="apellido" name="apellido"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Teléfono:" type="tel" required [(ngModel)]="telefono" name="telefono"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Contraseña:" type="password" required [(ngModel)]="contrasena" name="contrasena"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit">Registrarse</ion-button>
+  </form>
 </ion-content>

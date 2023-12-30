@@ -1,6 +1,23 @@
 <app-menu></app-menu>
 <ion-content id="agecan-main-content">
-  <div class="agendar">
+  <div class="agendar" *ngIf="isReady">
+    <div *ngIf="addresses.length>0 && !isLocated">
+      <h1>Confirma si la sesión será en una dirección registrada</h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Dirección</ion-col>
+          <ion-col>Ciudad</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let address of addresses">
+          <ion-col>{{ address.address }}</ion-col>
+          <ion-col>{{ nombreCiudad(address.city) }}</ion-col>
+          <ion-col>
+            <ion-button (click)="seleccionarDireccion(address)"><i class="fa fa-check"></i></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
     <div *ngIf="!isLocated">
       <h1>Por favor confirma tu ubicación</h1>
       <form name="frmUbicacion" (submit)="onConfirmar()">

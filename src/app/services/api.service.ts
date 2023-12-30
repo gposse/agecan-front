@@ -16,7 +16,21 @@ export class ApiService {
 
   async addAppointment(appointment:any): Promise<any> {
     const url = `${environment.apiUrl}appointment/add`;
-    const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(appointment)));
+    const token = await this.account.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(appointment),{headers: headers}));
+    return r;
+  }
+
+  async addresses(): Promise<any> {
+    const url = `${environment.apiUrl}address/list`;
+    const token = await this.account.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    const r = await firstValueFrom(this.httpClient.get(url,{headers: headers}));
     return r;
   }
 

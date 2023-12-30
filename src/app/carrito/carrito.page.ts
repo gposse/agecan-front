@@ -5,6 +5,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { IonButton, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonRow } from '@ionic/angular/standalone';
 import { CartService } from '../services/cart.service';
 import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -17,7 +18,8 @@ export class CarritoPage implements OnInit {
 
   constructor(
     private api: ApiService,
-    public cart: CartService
+    public cart: CartService,
+    private router: Router
   ) { }
 
   async checkout() {
@@ -27,6 +29,7 @@ export class CarritoPage implements OnInit {
       }
       const r = await this.api.buy(data);      
       this.cart.clean();
+      this.router.navigate(['/paquetes']);
     } catch (err) {
       console.log(err);
     }

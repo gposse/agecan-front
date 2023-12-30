@@ -15,18 +15,21 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonItem, IonList, IonRow, IonSelect, IonSelectOption, MenuComponent]
 })
 export class AgendarPage implements OnInit {
+  public addresses: any = [];
   public audioBase64: any;
   public celular: string = '';
   public chunks: any[] = [];
   public ciudad: any = null;
   public ciudadNombre: string = '';
   public direccion: string = '';
+  public direccionSeleccionada: any = null;
   public email: string = '';
   public fechaSeleccionada: string; 
   public horasDisponibles: any;
   public horaSeleccionada: string;
   public idSesion: any;
   public isLocated: boolean = false;
+  public isReady: boolean = false;
   public localidades: any = [];
   public localidad: any = null;
   public minDate: string;
@@ -64,10 +67,22 @@ export class AgendarPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.isReady = false;
     await this.data.iniciar();
     const fecha = new Date();
     this.fechaSeleccionada = fecha.toISOString().split('T')[0];
     this.idSesion = history.state.idSesion;    
+    this.addresses = await this.apiService.addresses();
+    this.isReady = true;
+  }
+
+  nombreCiudad(id:string) {
+    for (let c of this.data.ciudades) {
+      if (c.id == id) {
+        return c.name;
+      }
+    };
+    return '';
   }
 
   onCiudadChange(event: any) {
@@ -112,6 +127,20 @@ export class AgendarPage implements OnInit {
     if (localidad) {
       this.localidad = localidad;
     }
+  }
+
+  async seleccionarDireccion(address:any) {
+    this.direccionSeleccionada = address;
+    this.ciudad = { id: address.city };
+    this.localidad = { id: address.location };
+    this.horasDisponibles = await this.apiService.horasDisponibles(this.fechaSeleccionada,this.ciudad.id,this.localidad.id);
+    this.celular = address.phone;
+    this.direccion = address.address;
+    this.email = address.email;
+    this.nombre = address.name;
+    this.ciudadNombre = this.nombreCiudad(this.ciudad.id);
+
+    this.isLocated = true;
   }
 
   seleccionarHora(hora:string) {
@@ -166,6 +195,7 @@ export class AgendarPage implements OnInit {
       duration = 150;
     let appointment = {
       datetime: this.fechaSeleccionada+"T"+this.horaSeleccionada+":00.000Z",
+      addressId: this.direccionSeleccionada?.id ?? null,
       city: this.ciudad.id,
       location: this.localidad.id,
       address: this.direccion,
@@ -176,17 +206,15 @@ export class AgendarPage implements OnInit {
       audio: this.audioBase64,
       sessionId: this.idSesion
     }
-    const r = await this.apiService.addAppointment(appointment);
-    if (r) {
-      this.horaSeleccionada = "";
-      this.audioBase64 = "";
-      this.celular = "";
-      this.direccion = "";
-      this.email = "";
-      this.nombre = "";
-      this.recording = false;
-      this.router.navigate(['/paquetes']);    
-    }
+    await this.apiService.addAppointment(appointment);
+    this.horaSeleccionada = "";
+    this.audioBase64 = "";
+    this.celular = "";
+    this.direccion = "";
+    this.email = "";
+    this.nombre = "";
+    this.recording = false;
+    this.router.navigateByUrl('/home', { replaceUrl: true });
   }
 
   tieneHoraSeleccionada() {
