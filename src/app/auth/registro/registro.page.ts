@@ -2,7 +2,7 @@ import { AppPagePath } from "src/app/models/enums/app-constant";
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButton, IonContent, IonInput, IonItem } from '@ionic/angular/standalone';
+import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow } from '@ionic/angular/standalone';
 import { MenuComponent } from 'src/app/menu/menu.component';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButton, IonContent, IonInput, IonItem, MenuComponent]
+  imports: [CommonModule, FormsModule, IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, MenuComponent]
 })
 export class RegistroPage implements OnInit {
   apellido: string = '';
