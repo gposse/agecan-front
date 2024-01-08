@@ -23,6 +23,7 @@ export class LoginService {
         private router: Router) {
         this.isWeb = !(this.platform.is('android') || this.platform.is('ios'));
         this.firebase = initializeApp(environment.firebase);
+        this.initialize();
     }
 
     public async getUser() {
@@ -31,19 +32,6 @@ export class LoginService {
 
     isLoggedIn(): boolean {
         return this.userService.isLoggedIn();
-    }
-
-    async logout() {
-        await getAuth(this.firebase).signOut();
-        if (this.userService.loginType === 'facebook') {
-            await FacebookLogin.logout().then(() => console.log('Logged out')).catch((e) => { console.log('Logged out') });
-        }
-        if (this.userService.loginType === 'google') {
-            await GoogleAuth.signOut().then(() => console.log('Signed Out')).catch((e) => { console.log('Signed Out') });
-        }
-        this.userService.logout().then(async () => {
-            this.router.navigateByUrl('/login');
-        });
     }
 
     initialize() {
@@ -98,6 +86,19 @@ export class LoginService {
             console.log(error);
             alert(error.error ?? error.message ?? JSON.stringify(error));
         }
+    }
+
+    async logout() {
+        await getAuth(this.firebase).signOut();
+        if (this.userService.loginType === 'facebook') {
+            await FacebookLogin.logout().then(() => console.log('Logged out')).catch((e) => { console.log('Logged out') });
+        }
+        if (this.userService.loginType === 'google') {
+            await GoogleAuth.signOut().then(() => console.log('Signed Out')).catch((e) => { console.log('Signed Out') });
+        }
+        await this.userService.logout();
+        await this.localStorageService.clear([AppStorageKey.AccessToken]);
+        this.router.navigateByUrl('/login');
     }
 
     async registerWithEmail(email: string, password: string,nombre: string,apellido: string) {

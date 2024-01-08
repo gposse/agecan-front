@@ -1,11 +1,17 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'agecan-app',
+  appId: 'co.agendacanina.app',
+  appName: 'agendacanina-app',
   webDir: 'www',
   server: {
     androidScheme: 'https'
+  },
+  plugins: {
+    GoogleAuth: {}, 
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
+    }
   }
 };
 

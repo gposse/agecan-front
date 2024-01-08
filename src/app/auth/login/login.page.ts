@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.loginService.initialize();
+    //this.loginService.initialize();
     await this.storage.create();
     this.user = await this.loginService.getUser() ?? {};
   }
