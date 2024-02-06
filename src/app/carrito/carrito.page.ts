@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, IonButton, IonContent, IonCol, IonGrid, IonItem, IonLabel, IonList, IonRow, MenuComponent]
 })
 export class CarritoPage implements OnInit {
+  fileUpload: any;
 
   constructor(
     private api: ApiService,
@@ -24,12 +25,30 @@ export class CarritoPage implements OnInit {
 
   async checkout() {
     try {
-      const data = {
-        cart: this.cart.items
+      const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
+      if (fileInput.files && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => async () => {
+          const fileData = reader.result as string;
+          const base64Data = btoa(fileData);
+          const data = {
+            cart: this.cart.items,
+            fileData: base64Data
+          };
+          const r = await this.api.buy(data);
+          this.cart.clean();
+          this.router.navigate(['/paquetes']);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const data = {
+          cart: this.cart.items,
+        }
+        const r = await this.api.buy(data);      
+        this.cart.clean();
+        this.router.navigate(['/paquetes']);
       }
-      const r = await this.api.buy(data);      
-      this.cart.clean();
-      this.router.navigate(['/paquetes']);
     } catch (err) {
       console.log(err);
     }

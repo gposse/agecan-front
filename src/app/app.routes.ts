@@ -44,5 +44,5 @@ export const routes: Routes = [
   {
     path: 'terminos',
     loadComponent: () => import('./terminos/terminos.page').then( m => m.TerminosPage)
-  }
+  },
 ];

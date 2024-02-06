@@ -22,6 +22,7 @@ export class PaquetesPage implements OnInit {
   isReady: boolean = false;
   numSesiones: number = 0;
   numSesionesDisponibles: number = 0;
+  pendingPayment: number = 0;
   prices: any = [];
   price1: number = 0;
   price2: number = 0;
@@ -79,9 +80,15 @@ export class PaquetesPage implements OnInit {
     this.user = await this.account.getUser() ?? undefined;
     if (this.user) {
       const r = await this.api.sessionsUser();
-      if (r.length>0) {
-        this.numSesionesDisponibles = r.length;
-        this.idSesion = r[0].id;
+      if (r.sessions.length>0) {
+        this.numSesionesDisponibles = r.sessions.length;
+        this.idSesion = r.sessions[0].id;
+      }
+      this.pendingPayment = 0;
+      for (let p of r.pendingPayments) {
+        for (let item of p.cart) {
+          this.pendingPayment += item.price;
+        }
       }
     }
     const pt = await this.api.prices('Sesiones');

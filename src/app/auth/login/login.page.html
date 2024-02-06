@@ -12,8 +12,8 @@
       <p>{{error}}</p>
     </div>
     <ion-row>
-      <ion-col size="2"></ion-col>
-      <ion-col size="8">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
         <form (ngSubmit)="onSubmit()">
           <ion-item>
             <ion-input label="Email" type="email" required [(ngModel)]="email" name="email"></ion-input>
@@ -34,7 +34,7 @@
             Cuenta Facebook
           </ion-button>
           <ion-button expand="full" (click)="register()">
-          Regístrate
+          Regístrate con tu email
           </ion-button>
         </div>
       </ion-col>

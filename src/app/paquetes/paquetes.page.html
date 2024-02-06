@@ -15,6 +15,11 @@
         <div>Hola, {{ user?.name }}</div>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="pendingPayment>0">
+      <ion-col size="12">
+        <div>Tienes {{ pendingPayment | currency }} pendientes de confirmación de pago. Si ya pagaste y no has enviado el comprobante, por favor envíalo a <strong>contactenos&#64;agendacanina.com</strong> o al Whatsapp +57 3142452458</div>
+      </ion-col>
+    </ion-row>
     <ion-row *ngIf="numSesionesDisponibles==0">
       <ion-col size="12">
         <div>No tienes sesiones disponibles. Debes adquirir al menos una para programar una sesión.</div>

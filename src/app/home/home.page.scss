@@ -1,3 +1,8 @@
+ion-content {
+  --background-color: white;
+  --color: black;
+}
+
 .home {
   max-width: 1024px;
   margin-left: auto;
@@ -59,7 +64,7 @@ div.transbox .home-functions a {
   padding: 0.8vw;
   border-radius: 5px;
   font-weight: bold;
-  background: var(--ion-color-primary);
+  background: #553A09;
   color: white;
   text-decoration: none;
 }
@@ -144,6 +149,10 @@ div.transbox .home-functions a {
   margin-left: 1vw;
   margin-right: 1vw;
   text-align: justify;
+}
+
+#contacto {
+  background-color: white;
 }
 
 #contacto ion-col {
