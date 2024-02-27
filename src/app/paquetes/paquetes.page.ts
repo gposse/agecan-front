@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonRow, MenuComponent]
 })
 export class PaquetesPage implements OnInit {
+  errorMessage: string = '';
   idSesion: any;
   isReady: boolean = false;
   numSesiones: number = 0;
@@ -39,7 +40,11 @@ export class PaquetesPage implements OnInit {
   ) { }
 
   agregarACarrito() {
-    if (this.numSesiones<1) return;
+    if (this.numSesiones<1) {
+      this.errorMessage = 'Debes seleccionar al menos una sesión';
+      return;
+    }
+    this.errorMessage = '';
     
     this.cart.addProduct({
       type: 'Sesiones',
@@ -49,6 +54,7 @@ export class PaquetesPage implements OnInit {
   }
 
   calcularPrecio() {
+    this.errorMessage = '';
     if (this.numSesiones < 0) this.numSesiones = 0;
     if (this.numSesiones > 10) this.numSesiones = 10;
     this.precio = 0;

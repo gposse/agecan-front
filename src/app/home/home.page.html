@@ -96,7 +96,7 @@
         </ion-row>
         <ion-row>
           <ion-col size-md="6" size-xs="12">
-            <form>
+            <form (submit)="enviar()">
               <ion-item>
                 <ion-input label="Nombre" type="text" name="name"></ion-input>
               </ion-item>
@@ -124,22 +124,23 @@
               <ion-row>
                 <ion-col size="12">
                   <h3>Whatsapp</h3>
-                  <h4>+57 3142452458</h4>
+                  <h4><a href="https://wa.me/573142452458" target="_blank">+57 3142452458</a></h4>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col size="12">
-                  <h3>Website</h3>
-                  <h4>www.agendacanina.co</h4>
-                </ion-col>
+                  <h3>Email</h3>
+                    <h4><a href="mailto:contacto@agendacanina.co">contacto&#64;agendacanina.co</a></h4>
+                  </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col size="12">
                   <ul>
-                    <li><a href="https://www.tiktok.com/@agendacanina" target="_blank"><i class="fa-brands fa-tiktok"></i></a></li><!--/li-->
-                    <li><a href="https://wa.me/573142452458" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li><!--/li-->
-                    <li><a href="https://www.instagram.com/agendacanina/" target="_blank"><i class="fa-brands fa-instagram"></i></a></li><!--/li-->
-                  </ul><!--/ul-->
+                    <li><a href="https://www.tiktok.com/@agendacanina" target="_blank"><i class="fa-brands fa-tiktok"></i></a></li>
+                    <li><a href="https://wa.me/573142452458" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></li>
+                    <li><a href="https://www.instagram.com/agendacanina/" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="mailto:contacto@agendacanina.co"><i class="fa-brands fa-envelope"></i></a></li>
+                  </ul>
                 </ion-col>
               </ion-row>
             </ion-grid>

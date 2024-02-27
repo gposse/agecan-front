@@ -47,6 +47,12 @@
         </form>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="errorMessage">
+      <ion-col size="12">
+        <br/>
+        <div style="color: red">{{ errorMessage }}</div>
+      </ion-col>
+    </ion-row>
     <ion-row *ngIf="cart.sessions()>0">
       <ion-col size="12">
         <br/>
