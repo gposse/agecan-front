@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonMenuButton, IonRow, IonTextarea, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { MenuComponent } from '../menu/menu.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { MenuComponent } from '../menu/menu.component';
   standalone: true,
   imports: [IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonRow, IonTextarea, IonTitle, IonToolbar, MenuComponent, IonButtons, IonMenuButton],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   constructor() {}
 
   enviar() {
@@ -25,11 +26,14 @@ export class HomePage {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    console.log(emailRegex.test(email));
-
     if (name && email && title && message && emailRegex.test(email)) {
     } else {
       alert('Por favor complete todos los datos o ingrese un correo electrónico válido');
     }
   }
+
+  ngOnInit() {
+    console.log(environment.production,environment.apiUrl);
+  }
+
 }
