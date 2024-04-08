@@ -54,6 +54,12 @@ export class ApiService {
     return r;
   }
 
+  async contactSend(data:any): Promise<any> {
+    const url = `${environment.apiUrl}contact/send`;
+    const r = await firstValueFrom(this.httpClient.post(url,JSON.stringify(data)));
+    return r;
+  }
+
   async horasDisponibles(date:any,cityId:string,locationId:string): Promise<any> {
     const currentLocalDate = new Date();
     const a = currentLocalDate.toLocaleDateString("en-US", {timeZone: "America/Bogota", year: 'numeric', month: '2-digit', day: '2-digit'});

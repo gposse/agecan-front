@@ -32,6 +32,38 @@ ion-content {
   background-size: cover;
 }
 
+.home-image02 {
+  height: 40vw;
+  background-image: url(../../assets/images/about/home02.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.home-image03 {
+  height: 40vw;
+  background-image: url(../../assets/images/about/home03.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.home-image04 {
+  height: 40vw;
+  background-image: url(../../assets/images/about/home04.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.home-image05 {
+  height: 40vw;
+  background-image: url(../../assets/images/about/home05.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 div.transbox {
   background-color: rgba(10, 31, 116, 0.4);
   height: 100%;
@@ -191,6 +223,16 @@ div.transbox .home-functions a {
 }
 
 #contacto ion-col li {
+  padding-right: 2vw;
+}
+
+#about ion-col ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+#about ion-col li {
   padding-right: 2vw;
 }
 
