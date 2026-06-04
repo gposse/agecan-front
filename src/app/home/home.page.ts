@@ -151,7 +151,7 @@ export class HomePage implements OnInit {
         titleInput.value = '';
         messageInput.value = '';
       } catch (error) {
-        alert('Se produjo un error al enviar el mensaje. Intente más tarde, on envíenos su mensaje a contacto@agendacanina.co');
+        alert('Se produjo un error al enviar el mensaje. Intente más tarde, on envíenos su mensaje a rodrigosabbie@gmail.com');
       }
     } else {
       alert(
