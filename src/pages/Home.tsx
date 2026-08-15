@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-import { Mail } from 'lucide-react';
+import { Mail, CirclePlay } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { contactSend } from '../services/api';
@@ -116,7 +116,7 @@ export default function Home() {
             Instagram
           </a>{' '}
           y{' '}
-          <a href="https://www.tiktok.com/@agendacanina" target="_blank" rel="noreferrer" className="text-primary underline">
+          <a href="https://www.tiktok.com/@agendacanina360" target="_blank" rel="noreferrer" className="text-primary underline">
             TikTok
           </a>{' '}
           puedes ver más sobre Agenda Canina.
@@ -136,6 +136,15 @@ export default function Home() {
               <br />
               En más del 98% de los casos atendidos se ha dado una solución definitiva al problema.
             </p>
+            <a
+              href="https://www.youtube.com/watch?v=zHVk6BrBktM"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 font-semibold text-secondary hover:underline"
+            >
+              <CirclePlay className="h-5 w-5" />
+              Conoce a Rodrigo
+            </a>
           </div>
           <div className="md:col-span-5">
             <Swiper
@@ -152,7 +161,7 @@ export default function Home() {
             </Swiper>
             <ul className="mt-6 flex justify-center gap-6">
               <li>
-                <a href="https://www.tiktok.com/@agendacanina" target="_blank" rel="noreferrer" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@agendacanina360" target="_blank" rel="noreferrer" aria-label="TikTok">
                   <TikTokIcon className="h-6 w-6 text-secondary" />
                 </a>
               </li>
@@ -317,7 +326,7 @@ export default function Home() {
 
             <ul className="mt-4 flex gap-6">
               <li>
-                <a href="https://www.tiktok.com/@agendacanina" target="_blank" rel="noreferrer" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@agendacanina360" target="_blank" rel="noreferrer" aria-label="TikTok">
                   <TikTokIcon className="h-6 w-6 text-secondary" />
                 </a>
               </li>
