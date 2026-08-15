@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
+
+  /* Brand colors ported from agecan-front src/theme/variables.scss */
+  --color-primary: #553a09;
+  --color-primary-shade: #817567;
+  --color-primary-tint: #b6a99a;
+
+  --color-secondary: #004b33;
+  --color-secondary-shade: #257c62;
+  --color-secondary-tint: #257c62;
+
+  --color-tertiary: #4b8178;
+  --color-tertiary-shade: #00c9af;
+  --color-tertiary-tint: #c3fcf2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #222428;
+  background: #ffffff;
+}
