@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:prod": "npm run build && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*.js\" && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*\" --include \"*.js\" --content-type application/javascript"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.0",
