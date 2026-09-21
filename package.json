@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:prod": "tsc -b && vite build --mode production",
+    "build:test": "tsc -b && vite build --mode test",
     "lint": "oxlint",
     "preview": "vite preview",
-    "deploy:prod": "npm run build && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*.js\" && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*\" --include \"*.js\" --content-type application/javascript"
+    "deploy:prod": "npm run build:prod && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*.js\" && aws s3 sync dist s3://app.agendacanina.co --profile agecan --exclude \"*\" --include \"*.js\" --content-type application/javascript",
+    "deploy:test": "npm run build:test && aws s3 sync dist s3://test.agendacanina.com --profile agecan --exclude \"*.js\" && aws s3 sync dist s3://test.agendacanina.com --profile agecan --exclude \"*\" --include \"*.js\" --content-type application/javascript"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.0",
